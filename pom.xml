@@ -66,6 +66,11 @@
             <artifactId>redisson</artifactId>
             <version>3.12.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>7.14.0</version>
+        </dependency>
     </dependencies>
 
     <build>

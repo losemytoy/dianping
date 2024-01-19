@@ -93,6 +93,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
                 }
             }
         }
+
         private void handlePendingList() {
             while (true) {
                 try {

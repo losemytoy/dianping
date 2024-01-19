@@ -3,11 +3,13 @@ package com.hmdp.controller;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.hmdp.dto.Result;
+import com.hmdp.utils.QiniuOSSUtil;
 import com.hmdp.utils.SystemConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -16,6 +18,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("upload")
 public class UploadController {
+
+    @Resource
+    private QiniuOSSUtil qiniuOSSUtil;
 
     @PostMapping("blog")
     public Result uploadImage(@RequestParam("file") MultipartFile image) {
@@ -26,6 +31,7 @@ public class UploadController {
             String fileName = createNewFileName(originalFilename);
             // 保存文件
             image.transferTo(new File(SystemConstants.IMAGE_UPLOAD_DIR, fileName));
+//            qiniuOSSUtil.upload(image.getBytes(), fileName);
             // 返回结果
             log.debug("文件上传成功，{}", fileName);
             return Result.ok(fileName);
