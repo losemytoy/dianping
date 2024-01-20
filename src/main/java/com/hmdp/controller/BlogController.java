@@ -74,4 +74,12 @@ public class BlogController {
         // 修改点赞数量
         return blogService.queryBlogLikes(id);
     }
+
+    @GetMapping("/of/user")
+    public Result queryBlogByUserId(@RequestParam(value = "current", defaultValue = "1") Integer current,
+                                    @RequestParam("id") Long id) {
+        Page<Blog> page = blogService.lambdaQuery().eq(Blog::getUserId, id).page(new Page<>(current, SystemConstants.MAX_PAGE_SIZE));
+        List<Blog> records = page.getRecords();
+        return Result.ok(records);
+    }
 }

@@ -69,12 +69,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     private void isBlockLiked(Blog blog) {
-        Long userId = UserHolder.getUser().getId();
-        if (userId == null) {
+        UserDTO user = UserHolder.getUser();
+        if (user == null) {
             return;
         }
         String key = "blog:liked:" + blog.getUserId();
-        Double score = stringRedisTemplate.opsForZSet().score(key, userId.toString());
+        Double score = stringRedisTemplate.opsForZSet().score(key, user.getId().toString());
         blog.setIsLike(score != null);
     }
 
